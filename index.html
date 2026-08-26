@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redesign Estimate Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Redesign Estimate Calculator</h1>
+  <p class="subtitle">Studio Remod — internal cost estimating tool</p>
+
+  <div class="layout">
+    <div class="card">
+      <h2>Job Details</h2>
+
+      <label>Client Name (optional)</label>
+      <input type="text" id="client-name" placeholder="e.g. Jane Doe" />
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="own-gold" checked />
+        Client is selling their old gold to the refinery (deduct credit)
+      </label>
+
+      <h2>Costs</h2>
+
+      <div class="field-row">
+        <label for="printing">Printing</label>
+        <input type="number" id="printing" value="20" />
+      </div>
+
+      <div class="field-row">
+        <label for="material">Material</label>
+        <input type="number" id="material" value="370" />
+      </div>
+
+      <div class="field-row">
+        <label for="outside-labor">Outside Labor</label>
+        <input type="number" id="outside-labor" value="560" />
+      </div>
+
+      <div class="field-row labor-row">
+        <label>Internal Design Labor</label>
+        <div class="labor-inputs">
+          <input type="number" id="design-hours" value="3" step="0.5" />
+          <span>hrs ×</span>
+          <input type="number" id="design-rate" value="100" />
+          <span>$/hr =</span>
+          <span class="computed" id="design-labor-total">$300</span>
+        </div>
+      </div>
+
+      <div class="field-row labor-row">
+        <label>Internal Logistics Labor</label>
+        <div class="labor-inputs">
+          <input type="number" id="logistics-hours" value="4" step="0.5" />
+          <span>hrs ×</span>
+          <input type="number" id="logistics-rate" value="25" />
+          <span>$/hr =</span>
+          <span class="computed" id="logistics-labor-total">$100</span>
+        </div>
+      </div>
+
+      <div class="field-row total-row">
+        <label>Total Cost</label>
+        <span class="computed" id="total-cost">$0</span>
+      </div>
+
+      <h2>Stones</h2>
+      <div id="stones-list"></div>
+      <button type="button" id="add-stone" class="secondary-btn">+ Add Stone</button>
+      <div class="field-row total-row">
+        <label>Stones Total</label>
+        <span class="computed" id="stones-total">$0</span>
+      </div>
+
+      <h2>Chain</h2>
+      <div id="chain-list"></div>
+      <button type="button" id="add-chain" class="secondary-btn">+ Add Chain</button>
+      <div class="field-row total-row">
+        <label>Chain Total</label>
+        <span class="computed" id="chain-total">$0</span>
+      </div>
+
+      <h2>Markup &amp; Fees</h2>
+
+      <div class="field-row">
+        <label for="overhead-pct">Overhead %</label>
+        <input type="number" id="overhead-pct" value="40" />
+      </div>
+
+      <div class="field-row">
+        <label for="markup-pct">Guaranteed Markup %</label>
+        <input type="number" id="markup-pct" value="40" />
+      </div>
+
+      <div class="field-row">
+        <label for="shipping">Shipping</label>
+        <input type="number" id="shipping" value="200" />
+      </div>
+
+      <div class="field-row" id="gold-credit-row">
+        <label for="gold-credit">Old Gold Refinery Credit (deducted)</label>
+        <input type="number" id="gold-credit" value="275" />
+      </div>
+    </div>
+
+    <div class="card summary-card">
+      <h2>Estimate Summary</h2>
+      <div class="summary-line"><span>Total Cost</span><span id="s-total-cost">$0</span></div>
+      <div class="summary-line"><span>Stones</span><span id="s-stones">$0</span></div>
+      <div class="summary-line"><span>Chain</span><span id="s-chain">$0</span></div>
+      <div class="summary-line"><span>Overhead</span><span id="s-overhead">$0</span></div>
+      <div class="summary-line"><span>Guaranteed Markup</span><span id="s-markup">$0</span></div>
+      <div class="summary-line"><span>Shipping</span><span id="s-shipping">$0</span></div>
+      <div class="summary-line" id="s-gold-credit-line"><span>Old Gold Credit</span><span id="s-gold-credit">$0</span></div>
+      <div class="summary-line final"><span>Total Client Price</span><span id="s-final">$0</span></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
