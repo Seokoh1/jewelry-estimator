@@ -53,6 +53,13 @@ label {
   margin-bottom: 4px;
 }
 
+.hint {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: -8px;
+  margin-bottom: 14px;
+}
+
 .checkbox-row {
   display: flex;
   align-items: center;
@@ -167,4 +174,108 @@ input[type="number"] {
   padding-top: 12px;
   font-size: 1.3rem;
   font-weight: 700;
+}
+
+.primary-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #1e1e2f;
+  color: white;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background-color: #33334a;
+}
+
+.hidden {
+  display: none;
+}
+
+.quote-view {
+  max-width: 600px;
+  margin: 30px auto 0;
+}
+
+.quote-paper {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  padding: 40px;
+}
+
+.quote-paper h1 {
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.quote-subtitle {
+  color: #666;
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+.quote-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+
+.quote-lines {
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.quote-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.quote-line.final {
+  border-top: 2px solid #1e1e2f;
+  border-bottom: none;
+  margin-top: 8px;
+  padding-top: 14px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.quote-footnote {
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.quote-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.quote-actions .secondary-btn {
+  margin-bottom: 0;
+}
+
+@media print {
+  body > *:not(#quote-view) {
+    display: none !important;
+  }
+  .quote-view {
+    margin: 0;
+  }
+  .quote-paper {
+    box-shadow: none;
+    padding: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
 }

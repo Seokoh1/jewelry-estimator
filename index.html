@@ -22,6 +22,7 @@
       </label>
 
       <h2>Costs</h2>
+      <p class="hint">Your hourly rates and overhead/markup % are remembered automatically in this browser.</p>
 
       <div class="field-row">
         <label for="printing">Printing</label>
@@ -114,6 +115,34 @@
       <div class="summary-line"><span>Shipping</span><span id="s-shipping">$0</span></div>
       <div class="summary-line" id="s-gold-credit-line"><span>Old Gold Credit</span><span id="s-gold-credit">$0</span></div>
       <div class="summary-line final"><span>Total Client Price</span><span id="s-final">$0</span></div>
+
+      <button type="button" id="generate-quote" class="primary-btn">Generate Client Quote</button>
+    </div>
+  </div>
+
+  <div id="quote-view" class="quote-view hidden">
+    <div class="quote-paper">
+      <h1>Studio Remod</h1>
+      <p class="quote-subtitle">Custom Redesign Estimate</p>
+
+      <div class="quote-meta">
+        <div><strong>Client:</strong> <span id="q-client">—</span></div>
+        <div><strong>Date:</strong> <span id="q-date">—</span></div>
+      </div>
+
+      <div class="quote-lines">
+        <div class="quote-line"><span>Materials &amp; Gemstones</span><span id="q-materials">$0</span></div>
+        <div class="quote-line"><span>Design &amp; Fabrication</span><span id="q-fabrication">$0</span></div>
+        <div class="quote-line" id="q-gold-credit-line"><span>Old Gold Credit</span><span id="q-gold-credit">$0</span></div>
+        <div class="quote-line final"><span>Total Estimate</span><span id="q-final">$0</span></div>
+      </div>
+
+      <p class="quote-footnote">This is an estimate and may change once the final design is confirmed. Valid for 30 days.</p>
+    </div>
+
+    <div class="quote-actions no-print">
+      <button type="button" id="print-quote" class="primary-btn">Print / Save as PDF</button>
+      <button type="button" id="close-quote" class="secondary-btn">Back to Editing</button>
     </div>
   </div>
 

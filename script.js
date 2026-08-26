@@ -46,6 +46,8 @@ function setupItemList(listId, addBtnId, rowClass, placeholder) {
 const stones = setupItemList("stones-list", "add-stone", "stone", "e.g. Sapphire");
 const chain = setupItemList("chain-list", "add-chain", "chain", "e.g. 18k Cable Chain");
 
+let lastEstimate = null;
+
 function calculate() {
   const printing = parseFloat($("printing").value) || 0;
   const material = parseFloat($("material").value) || 0;
@@ -94,11 +96,85 @@ function calculate() {
   $("s-shipping").textContent = money(shipping);
   $("s-gold-credit").textContent = `-${money(goldCredit)}`;
   $("s-final").textContent = money(finalPrice);
+
+  lastEstimate = {
+    materials: material + stonesSum + chainSum,
+    fabrication: printing + outsideLabor + designLaborTotal + logisticsLaborTotal + overhead + markup,
+    shipping,
+    goldCredit,
+    goldCreditVisible,
+    finalPrice,
+  };
 }
 
 document.querySelectorAll("input").forEach((input) => {
   input.addEventListener("input", calculate);
 });
 
+const RATE_FIELDS = ["design-rate", "logistics-rate", "overhead-pct", "markup-pct"];
+const RATES_KEY = "jewelryEstimatorDefaultRates";
+
+function loadSavedRates() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(RATES_KEY));
+    if (!saved) return;
+    RATE_FIELDS.forEach((id) => {
+      if (saved[id] !== undefined) $(id).value = saved[id];
+    });
+  } catch (e) {
+    // ignore corrupt/missing storage
+  }
+}
+
+function saveRates() {
+  const values = {};
+  RATE_FIELDS.forEach((id) => {
+    values[id] = $(id).value;
+  });
+  try {
+    localStorage.setItem(RATES_KEY, JSON.stringify(values));
+  } catch (e) {
+    // storage unavailable (e.g. private browsing) — fail silently
+  }
+}
+
+RATE_FIELDS.forEach((id) => {
+  $(id).addEventListener("input", saveRates);
+});
+
+loadSavedRates();
 stones.addRow("Sapphire", 2000);
 calculate();
+
+const quoteView = $("quote-view");
+
+$("generate-quote").addEventListener("click", () => {
+  if (!lastEstimate) return;
+
+  $("q-client").textContent = $("client-name").value.trim() || "—";
+  $("q-date").textContent = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  $("q-materials").textContent = money(lastEstimate.materials);
+  $("q-fabrication").textContent = money(lastEstimate.fabrication + lastEstimate.shipping);
+
+  const goldCreditLineEl = $("q-gold-credit-line");
+  goldCreditLineEl.style.display = lastEstimate.goldCreditVisible ? "" : "none";
+  $("q-gold-credit").textContent = `-${money(lastEstimate.goldCredit)}`;
+
+  $("q-final").textContent = money(lastEstimate.finalPrice);
+
+  quoteView.classList.remove("hidden");
+  quoteView.scrollIntoView({ behavior: "smooth" });
+});
+
+$("print-quote").addEventListener("click", () => {
+  window.print();
+});
+
+$("close-quote").addEventListener("click", () => {
+  quoteView.classList.add("hidden");
+});
